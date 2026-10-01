@@ -1,0 +1,30 @@
+[
+  {
+    "method": "GET",
+    "path": "/status",
+    "body": null,
+    "code": 401,
+    "response": "{\"error\":\"unauthorized\"}"
+  },
+  {
+    "method": "POST",
+    "path": "/next",
+    "body": "9",
+    "code": 400,
+    "response": "{\"error\":\"send one digit from 1 to 6\"}"
+  },
+  {
+    "method": "POST",
+    "path": "/next",
+    "body": "2",
+    "code": 200,
+    "response": "{\"queued\":2,\"appliesTo\":\"next local roll\"}"
+  },
+  {
+    "method": "POST",
+    "path": "/next",
+    "body": "5",
+    "code": 409,
+    "response": "{\"error\":\"a roll is already pending\"}"
+  }
+]

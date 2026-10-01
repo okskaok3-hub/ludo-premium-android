@@ -1,0 +1,36 @@
+{
+  "package": "com.ludo.king.lan",
+  "version": "10.6.0.416",
+  "scope": "all-human local pass-and-play",
+  "patchRva": "0x209e544",
+  "hookRva": "0x5430000",
+  "hookBytes": 772,
+  "startupGuardPatch": {
+    "rva": "0x2104a3c",
+    "continuation": "0x2104b6c"
+  },
+  "sourceNativeSha256": "febb023b8c492cf59a7f16695186f355e7d2a0567667eeb99ded7b954e3ab2bd",
+  "patchedNativeSha256": "39fcfaee067a5779e41389e8c896a4f54dfef9cb201a3873a40eed9c6dd46240",
+  "apks": [
+    {
+      "name": "base.apk",
+      "sha256": "14cd3fbe71291719412d07c3f36a572ba3316654e82147a32c20fa11faadcac5",
+      "bytes": 103303713
+    },
+    {
+      "name": "split_AddressablesAssetPack.apk",
+      "sha256": "ed8c31ba7d513bad8361b1316774ffefdefebefa0a71df7260761ccf1edde463",
+      "bytes": 45707
+    },
+    {
+      "name": "split_config.arm64_v8a.apk",
+      "sha256": "d5a3cb25ed470d88ecdc0bb57fd4e4ad1a04c0d964afa32f4c17e73f6d3c4164",
+      "bytes": 42444688
+    },
+    {
+      "name": "split_UnityDataAssetPack.apk",
+      "sha256": "00d373b6156c0300265a1e23de5c460164bc662943f4bccbdcc90120e8fe58cb",
+      "bytes": 126405688
+    }
+  ]
+}

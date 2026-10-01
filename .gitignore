@@ -1,0 +1,12 @@
+*.apk
+*.apks
+*.idsig
+*.jks
+**/controller-config.json
+__pycache__/
+*.pyc
+lan-build/
+pulled/
+extracted/
+tools/
+*.zip

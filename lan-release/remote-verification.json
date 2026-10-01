@@ -1,0 +1,4 @@
+{
+  "route": "companion APK -> emulator host gateway -> host LAN relay -> ADB -> game listener",
+  "result": "Connected to 10.0.2.2:8765\nChoose 1-6, then roll in the game."
+}

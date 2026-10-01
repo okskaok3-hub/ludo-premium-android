@@ -1,0 +1,133 @@
+{
+  "device": "emulator-5554",
+  "package": "com.ludo.king.lan",
+  "patchedNativeSha256": "39fcfaee067a5779e41389e8c896a4f54dfef9cb201a3873a40eed9c6dd46240",
+  "coldStart": "main menu and local two-human game opened; invalid-panel flag stayed zero",
+  "commandedRolls": [
+    {
+      "sent": 2,
+      "nativeDiceReadback": 2
+    },
+    {
+      "sent": 6,
+      "nativeDiceReadback": 6
+    },
+    {
+      "sent": 4,
+      "nativeDiceReadback": 4
+    },
+    {
+      "sent": 3,
+      "nativeDiceReadback": 3
+    },
+    {
+      "sent": 5,
+      "nativeDiceReadback": 5
+    },
+    {
+      "sent": 1,
+      "nativeDiceReadback": 1
+    }
+  ],
+  "movementChecks": [
+    {
+      "command": 3,
+      "tokenIndexBefore": 0,
+      "tokenIndexAfter": 3
+    },
+    {
+      "command": 1,
+      "tokenIndexBefore": 0,
+      "tokenIndexAfter": 1
+    }
+  ],
+  "noPendingCommandRoll": {
+    "before": {
+      "invalid": 0,
+      "turn": 1,
+      "canDraw": 1,
+      "dice": 1,
+      "diceName": "santosh",
+      "positions": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        7,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "after": {
+      "invalid": 0,
+      "turn": 3,
+      "canDraw": 1,
+      "dice": 5,
+      "diceName": "santosh",
+      "positions": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        7,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "listenerBefore": {
+      "pending": false,
+      "lastApplied": 1,
+      "scope": "local pass-and-play"
+    },
+    "listenerAfter": {
+      "pending": false,
+      "lastApplied": 1,
+      "scope": "local pass-and-play"
+    }
+  },
+  "ads": "Ad buttons removed from menu; no banner, interstitial or pre-game ad blocked tested local game",
+  "companion": "HTTP 200 through emulator host gateway -> host LAN relay -> ADB -> game; see remote-verification.json",
+  "limits": "Physical second-phone LAN and a complete game to victory were not tested. Online mode is disabled."
+}

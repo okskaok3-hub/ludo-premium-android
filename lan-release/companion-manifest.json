@@ -1,0 +1,11 @@
+{
+  "package": "com.localdice.remote",
+  "version": "3.0",
+  "sha256": "aa717a4ac3c75df013531c718b0bbb70d563281dbf92fa605ee9e64141f29ee0",
+  "bytes": 29075,
+  "screens": [
+    "animated scanner",
+    "deduplicated device selection",
+    "connected dice control"
+  ]
+}

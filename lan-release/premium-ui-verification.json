@@ -1,0 +1,79 @@
+{
+  "deviceList": {
+    "page": 1,
+    "devices": [
+      {
+        "id": "30a0b94e-2b5e-4375-aceb-7a09e39c6126",
+        "name": "Android Emulator",
+        "address": "10.0.2.2:8765",
+        "relay": true
+      }
+    ],
+    "status": "1 game available",
+    "connected": false,
+    "pending": false,
+    "busy": false,
+    "selected": 1,
+    "sendEnabled": false,
+    "button": null
+  },
+  "connectedScreen": {
+    "page": 2,
+    "devices": [
+      {
+        "id": "30a0b94e-2b5e-4375-aceb-7a09e39c6126",
+        "name": "Android Emulator",
+        "address": "10.0.2.2:8765",
+        "relay": true
+      }
+    ],
+    "status": "Ready when you are. Choose a number and send.",
+    "connected": true,
+    "pending": false,
+    "busy": false,
+    "selected": 1,
+    "sendEnabled": true,
+    "button": "Send number 1   \u2192"
+  },
+  "queued": {
+    "page": 2,
+    "devices": [
+      {
+        "id": "30a0b94e-2b5e-4375-aceb-7a09e39c6126",
+        "name": "Android Emulator",
+        "address": "10.0.2.2:8765",
+        "relay": true
+      }
+    ],
+    "status": "Number 2 is ready. Roll the dice in your game.",
+    "connected": true,
+    "pending": true,
+    "busy": false,
+    "selected": 2,
+    "sendEnabled": false,
+    "button": "Waiting for the game to roll"
+  },
+  "backNavigation": {
+    "page": 1,
+    "devices": [
+      {
+        "id": "30a0b94e-2b5e-4375-aceb-7a09e39c6126",
+        "name": "Android Emulator",
+        "address": "10.0.2.2:8765",
+        "relay": true
+      }
+    ],
+    "status": "1 game available",
+    "connected": false,
+    "pending": false,
+    "busy": false,
+    "selected": 2,
+    "sendEnabled": true,
+    "button": "Send number 2   \u2192"
+  },
+  "unauthorizedStatus": 401,
+  "selectionDoesNotSend": true,
+  "physicalPhonesTested": false,
+  "companionSha256": "aa717a4ac3c75df013531c718b0bbb70d563281dbf92fa605ee9e64141f29ee0",
+  "testEnvironment": "Both apps on one emulator, with cached-app freezing temporarily disabled and restored after testing"
+}

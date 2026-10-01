@@ -1,0 +1,284 @@
+[
+  {
+    "rva": "0x2104ce0",
+    "reason": "Close startup warning panel and load menu",
+    "before": "fe57bea9f44f01a9f5870190946a0190f30300aaa8d67339946240f9c8000037806a0190006040f96ce3f69728008052a8d63339800240f9748a40f908e440b948000035b3e3f697",
+    "after": "f37bbfa9f30300aa1f600439008840f9e00000b4e1031faa5328a194800000b4e1031f2ae2031faa4933a194e00313aae1031faafefbff97e00313aae1031faaf37bc1a8b6020014"
+  },
+  {
+    "rva": "0x2104b94",
+    "reason": "Open menu without startup advertisement coroutine",
+    "before": "7ffcff97e10300aa",
+    "after": "5300009404000014"
+  },
+  {
+    "rva": "0x21beec0",
+    "reason": "Disable online authentication and profile requests in local build",
+    "before": "fe67bca9",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x21c0390",
+    "reason": "Disable online authentication and profile requests in local build",
+    "before": "fe0f1cf8",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x23a9f44",
+    "reason": "Disable online authentication and profile requests in local build",
+    "before": "ff0303d1",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x2285b18",
+    "reason": "Use offline game flow while Java LAN listener stays available",
+    "before": "fe57bea9f44f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x2281cf8",
+    "reason": "Ignore stale local cracked preference",
+    "before": "602600b9",
+    "after": "7f2600b9"
+  },
+  {
+    "rva": "0x22a3164",
+    "reason": "Hide rewarded video button",
+    "before": "fe0f1ef8f44f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x226a110",
+    "reason": "Hide rewarded video availability",
+    "before": "fe0f1ef8f44f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x226a51c",
+    "reason": "Hide rewarded video availability",
+    "before": "fe57bea9f44f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x2476d88",
+    "reason": "Disable local remove-ads promotional popup",
+    "before": "ff0301d1fe5f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x2585a88",
+    "reason": "Continue ordinary local play past pre-game ad offer",
+    "before": "f44f42a9",
+    "after": "06aaba14"
+  },
+  {
+    "rva": "0x22a2590",
+    "reason": "Hide rewarded gems button and strip",
+    "before": "fe5fbda9",
+    "after": "3337c614"
+  },
+  {
+    "rva": "0x22a2818",
+    "reason": "Hide rewarded gems button and strip",
+    "before": "fe0f1ef8",
+    "after": "9136c614"
+  },
+  {
+    "rva": "0x22a2b1c",
+    "reason": "Hide rewarded gems button and strip",
+    "before": "ff4301d1",
+    "after": "d035c614"
+  },
+  {
+    "rva": "0x226994c",
+    "reason": "Hide rewarded coins and timer buttons",
+    "before": "fe57bea9",
+    "after": "5b1ac714"
+  },
+  {
+    "rva": "0x206d984",
+    "reason": "Hide advertisement or rewarded video promotion",
+    "before": "fe0f1cf8",
+    "after": "c7010014"
+  },
+  {
+    "rva": "0x206d230",
+    "reason": "Hide advertisement or rewarded video promotion",
+    "before": "e923bd6d",
+    "after": "9c030014"
+  },
+  {
+    "rva": "0x256f0b8",
+    "reason": "Hide advertisement or rewarded video promotion",
+    "before": "fe5fbda9",
+    "after": "c1ffff17"
+  },
+  {
+    "rva": "0x256e7e8",
+    "reason": "Hide advertisement or rewarded video promotion",
+    "before": "c0035fd6",
+    "after": "f5010014"
+  },
+  {
+    "rva": "0x26b76e0",
+    "reason": "Hide advertisement or rewarded video promotion",
+    "before": "fe0f1df8",
+    "after": "f6ffff17"
+  },
+  {
+    "rva": "0x267b6cc",
+    "reason": "Mark ad initialization complete without initializing ad SDKs",
+    "before": "fe0f1ef8f44f01a9545c0190f30300aa",
+    "after": "280080520804033908c80339c0035fd6"
+  },
+  {
+    "rva": "0x267c26c",
+    "reason": "Disable advertisement request or display",
+    "before": "fe0f1df8",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x267ca1c",
+    "reason": "Disable advertisement request or display",
+    "before": "ff0301d1",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x267f914",
+    "reason": "Disable advertisement request or display",
+    "before": "fe0f1df8",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x267fb7c",
+    "reason": "Disable advertisement request or display",
+    "before": "fe0f1df8",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x26807c8",
+    "reason": "Disable advertisement request or display",
+    "before": "fe0f1ef8",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x26808b8",
+    "reason": "Disable advertisement request or display",
+    "before": "01000014",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x26808bc",
+    "reason": "Disable advertisement request or display",
+    "before": "fe57bea9",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x2283dc8",
+    "reason": "Disable advertisement request or display",
+    "before": "ff4301d1",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x2284204",
+    "reason": "Disable advertisement request or display",
+    "before": "fe57bea9",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x228419c",
+    "reason": "Disable advertisement request or display",
+    "before": "fe57bea9",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x216ad90",
+    "reason": "Disable advertisement request or display",
+    "before": "fe57bea9",
+    "after": "c0035fd6"
+  },
+  {
+    "rva": "0x267e0a8",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "fe0f1df8f65701a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x267fe90",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "ff0301d1fe5f01a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x26804f0",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "ffc300d1fe5701a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x2176d5c",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "fe5fbda9f65701a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x21775a8",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "fe0f1df8f65701a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x2177718",
+    "reason": "Report advertisement unavailable or stop promotional popup coroutine",
+    "before": "fe5fbda9f65701a9",
+    "after": "00008052c0035fd6"
+  },
+  {
+    "rva": "0x267e178",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "ff0301d1fe0b00f9f65702a9f44f03a9365c01b0d53e01f0",
+    "after": "a10000b4e00301aa61008052e2031faad5f3ff17c0035fd6"
+  },
+  {
+    "rva": "0x267e3d4",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "ff0301d1fe5f01a9f65702a9f44f03a9375c01b0d63e01f0",
+    "after": "a20000b4e00302aa61008052e2031faa3ef3ff17c0035fd6"
+  },
+  {
+    "rva": "0x267e5ec",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "fe5fbda9f65701a9f44f02a9375c01b0d63e01f0f30302aa",
+    "after": "a20000b4e00302aa61008052e2031faab8f2ff17c0035fd6"
+  },
+  {
+    "rva": "0x267e7b8",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "ffc301d1fd7b01a9fc6f02a9fa6703a9f85f04a9f65705a9",
+    "after": "a20000b4e00302aa41018052e2031faa45f2ff17c0035fd6"
+  },
+  {
+    "rva": "0x267f24c",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "fe0f1df8f65701a9f44f02a9365c0190d53e01d0f30301aa",
+    "after": "a10000b4e00301aa61008052e2031faac9efff17c0035fd6"
+  },
+  {
+    "rva": "0x267f44c",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "fe5fbda9f65701a9f44f02a9365c0190d73f01b0b53e01b0",
+    "after": "a10000b4e00301aa61008052e2031faa49efff17c0035fd6"
+  },
+  {
+    "rva": "0x267295c",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "ff4301d1fe5f02a9f65703a9f44f04a9965c01b037400190",
+    "after": "a10000b4e00301aa41018052e2031faa05220014c0035fd6"
+  },
+  {
+    "rva": "0x267f574",
+    "reason": "Complete ad callback with unavailable status",
+    "before": "ff4301d1fe6701a9f85f02a9f65703a9f44f04a9355c0190",
+    "after": "a10000b4e00301aa41018052e2031faaffeeff17c0035fd6"
+  }
+]
