@@ -1,0 +1,17 @@
+{
+  "installedApkCount": 1,
+  "signatureAndAlignmentVerified": true,
+  "startupAndLocalBoardLoaded": true,
+  "companionDiscoveryConnectionAndQueuePassed": true,
+  "commandedRoll": {
+    "queued": 6,
+    "runtimeDice": 6,
+    "invalidGameFlag": 0,
+    "consumed": true
+  },
+  "nativeHashMatchesTestedSplitBuild": true,
+  "nativeSha256": "39fcfaee067a5779e41389e8c896a4f54dfef9cb201a3873a40eed9c6dd46240",
+  "physicalPhonesTested": false,
+  "dataPreserved": true,
+  "apkSha256": "68eaa1f44abd9beee5faf41f9ad6d503c2b4761261fa1125ba97b1bc16c15f6e"
+}

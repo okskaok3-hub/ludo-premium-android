@@ -8,9 +8,11 @@ Ad requests, displays, rewarded video offers, in-house ad popups and the local r
 
 ## Install
 
-The game uses four APK splits. Install all four together; installing `base.apk` alone is insufficient. `LudoKing-LAN-Control.apks` is a ZIP containing these four splits, suitable for a compatible split-APK installer.
+**Recommended:** Install `Ludo-King-LAN-Standalone.apk` directly as a normal APK. It contains the base application, both asset packs and the ARM64 libraries, so no split installer is needed. Install `Local-Dice-Remote.apk` separately on the controlling phone.
 
-For the connected emulator, run `Install-Emulator.ps1` with ADB on PATH. It installs the game splits and companion APK, then launches the game. For a second physical phone, install `Local-Dice-Remote.apk` there.
+The original four-split format remains available. Install all four together; installing its `base.apk` alone is insufficient. `LudoKing-LAN-Control.apks` is a ZIP containing these four splits, suitable for a compatible split-APK installer.
+
+For the connected emulator, run `Install-Emulator.ps1` with ADB on PATH. It installs the standalone APK when present, otherwise the four game splits, followed by the companion, then launches the game. For a second physical phone, install `Local-Dice-Remote.apk` there.
 
 ## Send the next number
 
@@ -58,3 +60,5 @@ Other assistance counters have already evaluated the preliminary result before a
 This package and development signature are intended for local pass-and-play. Online login and profile flow are disabled. The LAN override excludes computer and online turns. Ad-dependent optional actions cannot earn rewards. Purchases and other modes have not been validated. Physical-device LAN operation needs a reachable Wi-Fi network; emulator verification uses ADB forwarding and a host relay.
 
 Build sources are in `../lan-control/`. `build-manifest.json` records SHA-256 hashes; `behavior-patches.json` records original and replacement instructions for startup and ad changes. `http-verification.json` records listener checks. `premium-ui-verification.json` records emulator discovery deduplication, screen navigation, selection, authenticated connection, queuing and pending-button checks. Screen previews are `premium-scanner.png`, `premium-devices.png` and `premium-control.png`. Physical phones have not been tested. Gameplay verification is recorded separately after emulator testing.
+
+`standalone-manifest.json` records the merged APK and its checksum. `standalone-verification.json` records a one-APK install, startup and local-board loading, companion checks, and a commanded six read back from the runtime. The native library matches the tested split build byte for byte. Existing app data was retained during the emulator update.

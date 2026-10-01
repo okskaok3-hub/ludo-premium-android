@@ -1,0 +1,14 @@
+{
+  "file": "Ludo-King-LAN-Standalone.apk",
+  "package": "com.ludo.king.lan",
+  "architecture": "arm64-v8a",
+  "sha256": "68eaa1f44abd9beee5faf41f9ad6d503c2b4761261fa1125ba97b1bc16c15f6e",
+  "bytes": 272082404,
+  "mergedEntries": {
+    "base-unsigned.apk": 1955,
+    "split_UnityDataAssetPack.apk": 312,
+    "split_AddressablesAssetPack.apk": 4,
+    "split_config.arm64_v8a.apk": 20
+  },
+  "splitRequirementRemoved": true
+}
