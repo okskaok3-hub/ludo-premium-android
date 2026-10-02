@@ -1,0 +1,57 @@
+{
+  "compiledCDecisionTests": [
+    {
+      "case": "opening six",
+      "result": 6
+    },
+    {
+      "case": "third six avoided",
+      "result": 1
+    },
+    {
+      "case": "exact home 2",
+      "result": 2
+    },
+    {
+      "case": "exact home 1 beats opening",
+      "result": 1
+    },
+    {
+      "case": "progress six",
+      "result": 6
+    },
+    {
+      "case": "ordinary opponent original retained",
+      "result": 3
+    },
+    {
+      "case": "opponent last token protected 1",
+      "result": 6
+    },
+    {
+      "case": "opponent last token protected 2",
+      "result": 6
+    },
+    {
+      "case": "opponent last token protected 3",
+      "result": 6
+    },
+    {
+      "case": "opponent last token protected 4",
+      "result": 6
+    },
+    {
+      "case": "opponent last token protected 5",
+      "result": 6
+    },
+    {
+      "case": "opponent last token protected 6",
+      "result": 5
+    },
+    {
+      "case": "opponent permitted third token home",
+      "result": 1
+    }
+  ],
+  "allPassed": true
+}

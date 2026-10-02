@@ -1,17 +1,36 @@
 {
+  "release": "4.0",
   "installedApkCount": 1,
+  "installedApkSha256MatchesRelease": true,
   "signatureAndAlignmentVerified": true,
   "startupAndLocalBoardLoaded": true,
-  "companionDiscoveryConnectionAndQueuePassed": true,
-  "commandedRoll": {
-    "queued": 6,
-    "runtimeDice": 6,
-    "invalidGameFlag": 0,
-    "consumed": true
-  },
   "nativeHashMatchesTestedSplitBuild": true,
-  "nativeSha256": "39fcfaee067a5779e41389e8c896a4f54dfef9cb201a3873a40eed9c6dd46240",
-  "physicalPhonesTested": false,
-  "dataPreserved": true,
-  "apkSha256": "68eaa1f44abd9beee5faf41f9ad6d503c2b4761261fa1125ba97b1bc16c15f6e"
+  "nativeSha256": "c30fd828b3d5f24292b47ac59273cc3bb3f6de5daf124f1bec81d05c16babdd1",
+  "apkSha256": "c35925c0b28ff2a9928511fdc304b7815eb5f8f1aed8369d36f000df94febea4",
+  "companionVersion": "4.0",
+  "colourControlsVerified": [
+    "Blue",
+    "Red",
+    "Green",
+    "Yellow",
+    "Off"
+  ],
+  "firstPlaceEndgameFixturePassed": true,
+  "completeNaturalMatchTested": false,
+  "opponentEndgameGuard": "Compiled actual C decision passed all six finishing distances; runtime opponent-endgame integration not tested.",
+  "lifecycleVerified": [
+    "new match starts off",
+    "first place detected at next roll clears policy",
+    "process restart clears policy"
+  ],
+  "reports": [
+    "winner-algorithm-verification.json",
+    "winner-runtime-verification.json",
+    "winner-lifecycle-verification.json",
+    "colour-ui-verification.json",
+    "premium-ui-verification.json"
+  ],
+  "physicalAndroidPhonesTested": false,
+  "iphoneDiscovery": "User reported working; exact installed IPA revision unconfirmed.",
+  "dataPreserved": true
 }

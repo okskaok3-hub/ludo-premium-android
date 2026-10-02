@@ -74,6 +74,6 @@
   "unauthorizedStatus": 401,
   "selectionDoesNotSend": true,
   "physicalPhonesTested": false,
-  "companionSha256": "aa717a4ac3c75df013531c718b0bbb70d563281dbf92fa605ee9e64141f29ee0",
-  "testEnvironment": "Both apps on one emulator, with cached-app freezing temporarily disabled and restored after testing"
+  "testEnvironment": "Both apps on one emulator, with cached-app freezing temporarily disabled and restored after testing",
+  "companionSha256": "029c3fdb148219e7448c29d089f23c1d8acf435c8ad20833bc797579d87d0b2f"
 }

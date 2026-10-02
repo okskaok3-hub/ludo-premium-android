@@ -37,7 +37,7 @@ class Relay(http.server.BaseHTTPRequestHandler):
         self.close_connection=self.headers.get('Connection','').lower()=='close'
         self.send_header('Cache-Control','no-store');self.send_header('Connection','close' if self.close_connection else 'keep-alive');self.end_headers();self.wfile.write(data);self.wfile.flush()
     def forward(self):
-        if (self.command,self.path) not in [('GET','/status'),('POST','/next')]:self.reply(404,b'{"error":"unknown endpoint"}');return
+        if (self.command,self.path) not in [('GET','/status'),('POST','/next'),('POST','/winner')]:self.reply(404,b'{"error":"unknown endpoint"}');return
         try:length=int(self.headers.get('Content-Length','0'))
         except ValueError:self.reply(400,b'{"error":"bad length"}');return
         if self.headers.get('Transfer-Encoding') or length<0 or length>64 or (self.command=='POST' and length<1):self.reply(400,b'{"error":"bad length"}');return

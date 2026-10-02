@@ -23,6 +23,7 @@ public final class LanBootstrap extends ContentProvider {
 
     @Override public boolean onCreate() {
         directory = getContext().getFilesDir();
+        new File(directory,"winner-state").delete(); new File(directory,"winner-policy").delete();
         deviceId = getContext().getSharedPreferences("lan-discovery", 0).getString("id", null);
         if (deviceId == null) {
             deviceId = UUID.randomUUID().toString();
@@ -92,6 +93,26 @@ public final class LanBootstrap extends ContentProvider {
         throw new IOException("Line too long");
     }
 
+    private JSONObject winnerStatus() throws Exception {
+        JSONObject result=new JSONObject();String state=readSmall("winner-state");
+        boolean supported=state.matches("[0-9a-f]{16}:[0-9a-f]:1");
+        result.put("supported",supported);result.put("matchId",supported?state.substring(0,16):"");
+        org.json.JSONArray colours=new org.json.JSONArray();
+        int mask=supported?Integer.parseInt(state.substring(17,18),16):0;
+        for(int n=1;n<=4;n++)if((mask&(1<<(n-1)))!=0)colours.put(n);
+        result.put("activeColours",colours);String policy=readSmall("winner-policy");
+        int selected=supported&&policy.matches("[0-9a-f]{16}:[1-4]")&&policy.startsWith(state.substring(0,16)+":")?policy.charAt(17)-'0':0;
+        result.put("selectedColour",selected);return result;
+    }
+    private String readSmall(String name) throws IOException {
+        File f=new File(directory,name);if(!f.exists()||f.length()>64)return "";
+        return new String(Files.readAllBytes(f.toPath()),StandardCharsets.US_ASCII).trim();
+    }
+    private void publish(String name,String text) throws IOException {
+        File temporary=new File(directory,name+".tmp");
+        try(FileOutputStream output=new FileOutputStream(temporary)){output.write(text.getBytes(StandardCharsets.US_ASCII));output.getFD().sync();}
+        if(!temporary.renameTo(new File(directory,name)))throw new IOException("Publish failed");
+    }
     private void handle(Socket socket) throws Exception {
         InputStream input = socket.getInputStream();
         String[] request = line(input).split(" ");
@@ -122,9 +143,10 @@ public final class LanBootstrap extends ContentProvider {
             result.put("scope", "local pass-and-play");
             result.put("deviceId", deviceId);
             result.put("deviceName", deviceName);
+            result.put("winnerAssist",winnerStatus());
             reply(socket, 200, result.toString()); return;
         }
-        if (!request[0].equals("POST") || !request[1].equals("/next")) {
+        if (!request[0].equals("POST") || !(request[1].equals("/next") || request[1].equals("/winner"))) {
             reply(socket, 404, "{\"error\":\"unknown endpoint\"}"); return;
         }
         if (length < 1 || length > 64) { reply(socket, 400, "{\"error\":\"body length\"}"); return; }
@@ -136,6 +158,22 @@ public final class LanBootstrap extends ContentProvider {
             received += count;
         }
         String text = new String(body, StandardCharsets.UTF_8).trim();
+        JSONObject winner=winnerStatus();
+        if(request[1].equals("/winner")) {
+            JSONObject command;
+            try{command=new JSONObject(text);}catch(Exception e){reply(socket,400,"{\"error\":\"invalid command\"}");return;}
+            int colour=command.optInt("colour",-1);
+            if(colour<0||colour>4){reply(socket,400,"{\"error\":\"invalid colour\"}");return;}
+            if(!winner.optBoolean("supported")||!winner.optString("matchId").equals(command.optString("matchId"))) {
+                reply(socket,409,"{\"error\":\"start a Classic local match and refresh\"}");return;
+            }
+            boolean active=colour==0;org.json.JSONArray colours=winner.getJSONArray("activeColours");
+            for(int i=0;i<colours.length();i++)if(colours.getInt(i)==colour)active=true;
+            if(!active||pending.exists()){reply(socket,409,"{\"error\":\"colour unavailable or manual roll pending\"}");return;}
+            if(colour==0)new File(directory,"winner-policy").delete();else publish("winner-policy",winner.getString("matchId")+":"+colour);
+            JSONObject result=new JSONObject();result.put("winnerAssist",winnerStatus());reply(socket,200,result.toString());return;
+        }
+        if(winner.optInt("selectedColour")!=0){reply(socket,409,"{\"error\":\"disable colour assistance before sending a manual number\"}");return;}
         if (!text.matches("[1-6]")) { reply(socket, 400, "{\"error\":\"send one digit from 1 to 6\"}"); return; }
         if (pending.exists()) { reply(socket, 409, "{\"error\":\"a roll is already pending\"}"); return; }
         File temporary = new File(directory, "nextdice.tmp");

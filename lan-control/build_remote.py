@@ -1,4 +1,4 @@
-import os, subprocess, zipfile, json
+import os, subprocess, zipfile, json, hashlib
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT/'lan-control'; WORK = ROOT/'lan-build/remote'; OUT = ROOT/'lan-release'
@@ -17,4 +17,6 @@ apk=OUT/'Local-Dice-Remote.apk'
 run(BT/'zipalign.exe','-f','4',WORK/'unsigned.apk',apk)
 run('java','-jar',BT/'lib/apksigner.jar','sign','--ks',SRC/'local-development.jks','--ks-pass','pass:local-dice-build','--key-pass','pass:local-dice-build',apk)
 run('java','-jar',BT/'lib/apksigner.jar','verify',apk)
+manifest={'package':'com.localdice.remote','version':'4.0','sha256':hashlib.sha256(apk.read_bytes()).hexdigest(),'bytes':apk.stat().st_size,'screens':['animated scanner','deduplicated device selection','connected dice and colour control'],'colourPicker':'Android only'}
+(OUT/'companion-manifest.json').write_text(json.dumps(manifest,indent=2))
 print(apk)

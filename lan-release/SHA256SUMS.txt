@@ -1,4 +1,3 @@
-aa717a4ac3c75df013531c718b0bbb70d563281dbf92fa605ee9e64141f29ee0  Local-Dice-Remote.apk
-9320e73603c8a42a657226f22344dbc19bc4e2bd25d27ce37a441e50c870ec37  LudoKing-LAN-Control.apks
-8c2ccddfce7149ee139a4032d18868625dc58c55a57c536f6e67246f53cf6803  Ludo-King-LAN-v3.0.zip
-68eaa1f44abd9beee5faf41f9ad6d503c2b4761261fa1125ba97b1bc16c15f6e  Ludo-King-LAN-Standalone.apk
+c35925c0b28ff2a9928511fdc304b7815eb5f8f1aed8369d36f000df94febea4  Ludo-King-LAN-Standalone.apk
+029c3fdb148219e7448c29d089f23c1d8acf435c8ad20833bc797579d87d0b2f  Local-Dice-Remote.apk
+54a53f3f9d601e1439436ded69961704a4365f1d1cecd6e41bff0df57c69aae4  Ludo-King-LAN-v4.0.zip

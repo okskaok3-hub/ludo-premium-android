@@ -32,6 +32,15 @@ local_dice_hook:
     add x9, x9, w10, uxtw #2
     ldr w9, [x9, #0x20]
     cbnz w9, done
+    mov x0, x19
+    mov x1, x21
+    bl winner_pick
+    cbz w0, manual_roll
+    mov w20, w0
+    add w9, w20, #48
+    strb w9, [sp, #64]
+    b apply_roll
+manual_roll:
     // renameat atomically claims one pending command.
     mov x0, #-100
     adr x1, pending_path
@@ -69,6 +78,7 @@ local_dice_hook:
     sub w9, w20, #1
     cmp w9, #5
     b.hi done
+apply_roll:
     // Create the genuine ObscuredInt; never write a plain int into it.
     mov w0, w20
     mov x1, #0
@@ -128,6 +138,37 @@ claimed_path:
     .asciz "/data/user/0/com.ludo.king.lan/files/nextdice.claimed"
 last_path:
     .asciz "/data/user/0/com.ludo.king.lan/files/lastdice"
+.balign 4
+.global winner_start_hook
+winner_start_hook:
+ stp x19, x30, [sp, #-16]!
+ mov x19, x0
+ bl winner_start_original
+ mov x0, x19
+ bl winner_begin
+ ldp x19, x30, [sp], #16
+ ret
+winner_start_original:
+ sub sp, sp, #0x80
+ b start_continue
+.global winner_destroy_hook
+winner_destroy_hook:
+ stp x0, x1, [sp, #-32]!
+ str x30, [sp, #16]
+ bl winner_end
+ ldr x30, [sp, #16]
+ ldp x0, x1, [sp], #32
+ stp x30, x25, [sp, #-0x40]!
+ b destroy_continue
+.global winner_finish_hook
+winner_finish_hook:
+ stp x0, x1, [sp, #-32]!
+ str x30, [sp, #16]
+ bl winner_end
+ ldr x30, [sp, #16]
+ ldp x0, x1, [sp], #32
+ str d8, [sp, #-0x50]!
+ b finish_continue
 .balign 4
 .global hide_gems_ads
 hide_gems_ads:

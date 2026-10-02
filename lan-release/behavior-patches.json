@@ -1,5 +1,23 @@
 [
   {
+    "rva": "0x20b9684",
+    "reason": "Scope colour assistance to real local match lifecycle",
+    "before": "ff0302d1",
+    "after": "fedacd14"
+  },
+  {
+    "rva": "0x20ee714",
+    "reason": "Scope colour assistance to real local match lifecycle",
+    "before": "fe67bca9",
+    "after": "e306cd14"
+  },
+  {
+    "rva": "0x20cc614",
+    "reason": "Scope colour assistance to real local match lifecycle",
+    "before": "e80f1bfc",
+    "after": "2a8fcd14"
+  },
+  {
     "rva": "0x2104ce0",
     "reason": "Close startup warning panel and load menu",
     "before": "fe57bea9f44f01a9f5870190946a0190f30300aaa8d67339946240f9c8000037806a0190006040f96ce3f69728008052a8d63339800240f9748a40f908e440b948000035b3e3f697",
@@ -69,31 +87,31 @@
     "rva": "0x2585a88",
     "reason": "Continue ordinary local play past pre-game ad offer",
     "before": "f44f42a9",
-    "after": "06aaba14"
+    "after": "25aaba14"
   },
   {
     "rva": "0x22a2590",
     "reason": "Hide rewarded gems button and strip",
     "before": "fe5fbda9",
-    "after": "3337c614"
+    "after": "5237c614"
   },
   {
     "rva": "0x22a2818",
     "reason": "Hide rewarded gems button and strip",
     "before": "fe0f1ef8",
-    "after": "9136c614"
+    "after": "b036c614"
   },
   {
     "rva": "0x22a2b1c",
     "reason": "Hide rewarded gems button and strip",
     "before": "ff4301d1",
-    "after": "d035c614"
+    "after": "ef35c614"
   },
   {
     "rva": "0x226994c",
     "reason": "Hide rewarded coins and timer buttons",
     "before": "fe57bea9",
-    "after": "5b1ac714"
+    "after": "7a1ac714"
   },
   {
     "rva": "0x206d984",

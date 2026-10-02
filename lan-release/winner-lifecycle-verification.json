@@ -1,0 +1,48 @@
+{
+  "afterFirstPlaceAndNextRoll": {
+    "pending": false,
+    "lastApplied": 2,
+    "scope": "local pass-and-play",
+    "deviceId": "30a0b94e-2b5e-4375-aceb-7a09e39c6126",
+    "deviceName": "Android Emulator",
+    "winnerAssist": {
+      "supported": false,
+      "matchId": "",
+      "activeColours": [],
+      "selectedColour": 0
+    }
+  },
+  "selectionCleared": true,
+  "newMatchTested": true,
+  "processRestartTested": true,
+  "newMatchState": {
+    "supported": true,
+    "matchId": "0000012425266400",
+    "activeColours": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "selectedColour": 0
+  },
+  "newMatchSelectedColourReset": true,
+  "beforeRestart": {
+    "supported": true,
+    "matchId": "0000012425266400",
+    "activeColours": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "selectedColour": 1
+  },
+  "afterRestart": {
+    "supported": false,
+    "matchId": "",
+    "activeColours": [],
+    "selectedColour": 0
+  },
+  "testEnvironmentRestored": "Game process restarted to remove the temporary sticky unfreeze used for two-app emulator UI verification. cached_apps_freezer restored to prior null."
+}

@@ -46,9 +46,12 @@ align = lambda n: (n+16383) & ~16383
 va = align(max(s['p_vaddr']+s['p_memsz'] for s in loads))
 offset = align(original.stat().st_size)
 run(NDK/'clang.exe','--target=aarch64-linux-android24','-c',SRC/'hook.S','-o',WORK/'hook.o')
-run(NDK/'ld.lld.exe','-Ttext='+hex(va),'--defsym=gamemanager_slot=0x4e59058','--defsym=gamecontroller_slot=0x4e591d8','--defsym=encode_int=0x1fc9b3c','--defsym=get_game_object=0x494ee44','--defsym=set_active=0x4951a2c','--defsym=dismiss_local_offer=0x2586c58','--oformat=binary',WORK/'hook.o','-o',WORK/'hook.bin')
-with (WORK/'hook.o').open('rb') as f:
-    hook_symbols = {s.name:va+s['st_value'] for s in ELFFile(f).get_section_by_name('.symtab').iter_symbols() if s.name.startswith(('hide_','dismiss_local_ad_'))}
+run(NDK/'clang.exe','--target=aarch64-linux-android24','-O2','-ffreestanding','-fno-stack-protector','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-fno-pic','-c',SRC/'winner.c','-o',WORK/'winner.o')
+bindings = {'gamemanager_slot':0x4e59058,'gamecontroller_slot':0x4e591d8,'encode_int':0x1fc9b3c,'get_game_object':0x494ee44,'set_active':0x4951a2c,'dismiss_local_offer':0x2586c58,'ping_method_slot':0x4e5b0a8,'init_metadata':0x1ebdab8,'get_transform':0x49517e4,'get_child':0x4961778,'get_ping':0x2fc7f74,'is_quick':0x210cc54,'start_continue':0x20b9688,'destroy_continue':0x20ee718,'finish_continue':0x20cc618}
+run(NDK/'ld.lld.exe','-Ttext='+hex(va),*[f'--defsym={k}={hex(v)}' for k,v in bindings.items()],WORK/'hook.o',WORK/'winner.o','-o',WORK/'hook.elf')
+run(NDK/'llvm-objcopy.exe','-O','binary',WORK/'hook.elf',WORK/'hook.bin')
+with (WORK/'hook.elf').open('rb') as f:
+    hook_symbols = {s.name:s['st_value'] for s in ELFFile(f).get_section_by_name('.symtab').iter_symbols()}
 stub = (WORK/'hook.bin').read_bytes()
 raw = bytearray(original.read_bytes())
 site = 0x209e544
@@ -74,6 +77,12 @@ def patch(rva, code, reason):
     raw[pos:pos+len(code)] = code
 def words(*ops): return struct.pack('<'+'I'*len(ops),*ops)
 def branch(site,target,link=False): return (0x94000000 if link else 0x14000000)|(((target-site)//4)&0x3ffffff)
+for rva,name,expected in [(0x20b9684,'winner_start_hook','ff0302d1'),(0x20ee714,'winner_destroy_hook','fe67bca9'),(0x20cc614,'winner_finish_hook','e80f1bfc')]:
+    seg=next(s for s in loads if s['p_vaddr']<=rva<s['p_vaddr']+s['p_filesz'])
+    actual=raw[seg['p_offset']+rva-seg['p_vaddr']:seg['p_offset']+rva-seg['p_vaddr']+4].hex()
+    # Exact original instruction is validated by its disassembly as well as opcode below.
+    assert actual==expected,(name,actual)
+    patch(rva,words(branch(rva,hook_symbols[name])),'Scope colour assistance to real local match lifecycle')
 run(NDK/'clang.exe','--target=aarch64-linux-android24','-c',SRC/'menu.S','-o',WORK/'menu.o')
 run(NDK/'ld.lld.exe','-Ttext=0x2104ce0','--defsym=get_game_object=0x494ee44','--defsym=set_active=0x4951a2c','--defsym=load_main_menu=0x21057fc','--defsym=init_ads=0x2103d0c','--oformat=binary',WORK/'menu.o','-o',WORK/'menu.bin')
 patch(0x2104ce0,(WORK/'menu.bin').read_bytes(),'Close startup warning panel and load menu')

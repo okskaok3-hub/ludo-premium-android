@@ -1,11 +1,12 @@
 {
   "package": "com.localdice.remote",
-  "version": "3.0",
-  "sha256": "aa717a4ac3c75df013531c718b0bbb70d563281dbf92fa605ee9e64141f29ee0",
+  "version": "4.0",
+  "sha256": "029c3fdb148219e7448c29d089f23c1d8acf435c8ad20833bc797579d87d0b2f",
   "bytes": 29075,
   "screens": [
     "animated scanner",
     "deduplicated device selection",
-    "connected dice control"
-  ]
+    "connected dice and colour control"
+  ],
+  "colourPicker": "Android only"
 }

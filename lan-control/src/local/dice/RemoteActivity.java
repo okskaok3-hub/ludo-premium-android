@@ -28,6 +28,10 @@ public final class RemoteActivity extends Activity {
     private EditText address,token;
     private Button sendButton;
     private DiceFace hero;
+    private JSONObject winnerState=new JSONObject();
+    private TextView assistLabel;
+    private final List<Button> colourButtons=new ArrayList<>();
+    private static final String[] COLOURS={"Off","Blue","Red","Green","Yellow"};
     private final List<View> diceButtons=new ArrayList<>();
     private final LinkedHashMap<String,Device> found=new LinkedHashMap<>();
     private final Handler handler=new Handler(Looper.getMainLooper());
@@ -117,16 +121,25 @@ public final class RemoteActivity extends Activity {
         card.setFocusable(true);card.setContentDescription("Connect to "+d.name);card.setOnClickListener(v->connectDevice(d));
     }
     private void connectDevice(Device d){
-        if(busy)return;current=d;address.setText(d.address);connected=false;pending=false;selected=1;
+        if(busy)return;current=d;address.setText(d.address);connected=false;pending=false;selected=1;winnerState=new JSONObject();
         showControl();send("GET","/status",null,false);
     }
     private void showControl(){
-        page=CONTROL;root.removeAllViews();diceButtons.clear();header(true);LinearLayout body=content();
+        page=CONTROL;root.removeAllViews();diceButtons.clear();colourButtons.clear();header(true);LinearLayout body=content();
         LinearLayout badge=new LinearLayout(this);badge.setGravity(Gravity.CENTER_VERTICAL);badge.setPadding(dp(16),dp(14),dp(16),dp(14));badge.setBackground(shape(-1,18,LINE));
         LinearLayout names=column();TextView name=text(current.name,16,INK,true);name.setMaxLines(2);names.addView(name);space(names,6);connectionLabel=text("●  Connecting…",12,MUTED,false);names.addView(connectionLabel);badge.addView(names,new LinearLayout.LayoutParams(0,-2,1));
         TextView change=text("Change",12,BLUE,true);change.setGravity(Gravity.CENTER);change.setMinHeight(dp(48));change.setMinWidth(dp(64));change.setPadding(dp(12),dp(12),0,dp(12));change.setOnClickListener(v->showResults(null));badge.addView(change);body.addView(badge);space(body,24);
         body.addView(text("Make your next move.",29,INK,true));space(body,8);body.addView(text("Choose the number for your next local roll.",14,MUTED,false));space(body,24);
         LinearLayout showcase=new LinearLayout(this);showcase.setGravity(Gravity.CENTER_VERTICAL);showcase.setPadding(dp(24),dp(22),dp(24),dp(22));
+        LinearLayout assist=column();assist.setPadding(dp(18),dp(18),dp(18),dp(18));assist.setBackground(shape(-1,22,LINE));
+        assist.addView(text("Choose a winning colour",20,INK,true));space(assist,8);
+        assist.addView(text("Helpful rolls throughout your local match. Move your tokens normally to finish.",13,MUTED,false));space(assist,16);
+        for(int row=0;row<2;row++){LinearLayout choices=new LinearLayout(this);
+            for(int col=0;col<2;col++){final int colour=row*2+col+1;Button b=button(COLOURS[colour],false);b.setContentDescription("Assist "+COLOURS[colour]);
+                LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,dp(48),1);if(col>0)lp.leftMargin=dp(10);choices.addView(b,lp);colourButtons.add(b);b.setOnClickListener(v->chooseColour(colour));}
+            assist.addView(choices);space(assist,10);}
+        Button off=button("Use normal rolls",false);appendButton(assist,off);colourButtons.add(off);off.setOnClickListener(v->chooseColour(0));space(assist,12);
+        assistLabel=text("Start a Classic local match to choose a colour.",12,MUTED,false);assist.addView(assistLabel);body.addView(assist);space(body,24);
         GradientDrawable gradient=new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{0xff151D35,0xff303E72});gradient.setCornerRadius(dp(26));showcase.setBackground(gradient);
         LinearLayout caption=column();TextView small=text("NEXT ROLL",11,0xffAFC2FF,true);small.setLetterSpacing(.16f);caption.addView(small);space(caption,12);caption.addView(text("Your choice.",24,-1,true));space(caption,8);caption.addView(text("One roll at a time.",12,0xffC3CDE6,false));showcase.addView(caption,new LinearLayout.LayoutParams(0,-2,1));
         hero=new DiceFace(this,selected,true);showcase.addView(hero,new LinearLayout.LayoutParams(dp(94),dp(94)));body.addView(showcase);space(body,24);
@@ -148,8 +161,18 @@ public final class RemoteActivity extends Activity {
     private void updateControls(){
         if(page!=CONTROL)return;
         for(int i=0;i<diceButtons.size();i++){View v=diceButtons.get(i);boolean active=selected==i+1;surface(v,active?0xffEAF0FF:-1,active?BLUE:LINE,19);v.setSelected(active);v.setAlpha(busy&&!refreshing?.65f:1);v.setEnabled(!busy||refreshing);}
-        if(sendButton!=null){boolean enabled=connected&&(!busy||refreshing)&&!pending;sendButton.setEnabled(enabled);sendButton.setAlpha(enabled?1:.45f);sendButton.setText(busy&&!refreshing?"Connecting…":pending?"Waiting for the game to roll":!connected?"Connect to send":"Send number "+selected+"   →");}
+        if(sendButton!=null){boolean enabled=connected&&(!busy||refreshing)&&!pending&&winnerState.optInt("selectedColour")==0;sendButton.setEnabled(enabled);sendButton.setAlpha(enabled?1:.45f);sendButton.setText(busy&&!refreshing?"Connecting…":winnerState.optInt("selectedColour")!=0?"Automatic colour rolls active":pending?"Waiting for the game to roll":!connected?"Connect to send":"Send number "+selected+"   →");}
+        int chosen=winnerState.optInt("selectedColour");boolean supported=winnerState.optBoolean("supported");org.json.JSONArray active=winnerState.optJSONArray("activeColours");
+        int[] inks={BLUE,0xffD54350,GREEN,0xff9C7300};
+        for(int i=0;i<colourButtons.size();i++){int colour=i<4?i+1:0;boolean available=colour==0;
+            if(active!=null)for(int j=0;j<active.length();j++)if(active.optInt(j)==colour)available=true;
+            Button b=colourButtons.get(i);surface(b,colour==chosen?0xffEAF0FF:-1,colour==chosen?BLUE:LINE,16);b.setTextColor(colour==0?INK:inks[i]);
+            b.setEnabled(connected&&supported&&available&&!pending&&(!busy||refreshing));b.setAlpha(b.isEnabled()?1:.4f);}
+        if(assistLabel!=null)assistLabel.setText(!supported?"Start a Classic local match with 2-4 human players.":chosen==0?"Normal dice. Choose a colour to enable assistance.":COLOURS[chosen]+" assisted - exact home rolls - first-place protection");
         if(connectionLabel!=null){connectionLabel.setText(busy&&!connected?"●  Connecting…":connected?"●  Connected":"●  Connection unavailable");connectionLabel.setTextColor(connected?GREEN:MUTED);}
+    }
+    private void chooseColour(int colour){
+        try{JSONObject command=new JSONObject();command.put("colour",colour);command.put("matchId",winnerState.optString("matchId"));send("POST","/winner",command.toString(),false);}catch(Exception ignored){}
     }
     private void manualDialog(){
         LinearLayout form=column();form.setPadding(dp(24),dp(12),dp(24),0);
@@ -201,26 +224,29 @@ public final class RemoteActivity extends Activity {
         final String destination=address.getText().toString().trim(),credential=token.getText().toString().trim();
         if(destination.isEmpty()||credential.isEmpty())return;
         if(body!=null&&(!connected||!destination.equals(connectedAddress)||!credential.equals(connectedToken)))return;
-        final int ticket=requestGeneration;busy=true;refreshing=quiet;if(!quiet)status.setText(body==null?"Connecting to your game…":"Sending number "+body+"…");updateControls();
+        final int ticket=requestGeneration;busy=true;refreshing=quiet;if(!quiet)status.setText(body==null?"Connecting to your game…":path.equals("/winner")?"Updating colour assistance…":"Sending number "+body+"…");updateControls();
         new Thread(()->{
-            HttpURLConnection connection=null;boolean success=false,waiting=false;String message;String name=null;ByteArrayOutputStream result=new ByteArrayOutputStream();
+            HttpURLConnection connection=null;boolean success=false,waiting=false;String message;String name=null;JSONObject assist=null;ByteArrayOutputStream result=new ByteArrayOutputStream();
             try{
                 String base=destination.startsWith("http://")?destination:"http://"+destination;
                 connection=(HttpURLConnection)new URL(base+path).openConnection();connection.setConnectTimeout(2500);connection.setReadTimeout(2500);connection.setRequestMethod(method);connection.setRequestProperty("Authorization","Bearer "+credential);
                 if(body!=null){byte[] bytes=body.getBytes(StandardCharsets.US_ASCII);connection.setDoOutput(true);connection.setFixedLengthStreamingMode(bytes.length);connection.setRequestProperty("Content-Type","text/plain");try(OutputStream output=connection.getOutputStream()){output.write(bytes);}}
                 int code=connection.getResponseCode();InputStream input=code>=400?connection.getErrorStream():connection.getInputStream();
                 if(input!=null)try(InputStream stream=input){byte[] buffer=new byte[1024];int n;while((n=stream.read(buffer))>=0&&result.size()<4096)result.write(buffer,0,n);}
-                JSONObject json=new JSONObject(result.toString("UTF-8"));
+                JSONObject json=new JSONObject(result.toString("UTF-8"));assist=json.optJSONObject("winnerAssist");
                 if(code==200&&body==null&&"local pass-and-play".equals(json.optString("scope"))){success=true;waiting=json.optBoolean("pending");name=json.optString("deviceName",null);message=waiting?"Number ready. Roll the dice in your game.":"Ready when you are. Choose a number and send.";}
+                else if(code==200&&path.equals("/winner")&&assist!=null){success=true;message=assist.optInt("selectedColour")==0?"Normal rolls restored.":COLOURS[assist.optInt("selectedColour")]+" will receive helpful rolls. Move your tokens in the game.";}
+                else if(code==409&&path.equals("/winner")){success=true;waiting=pending;message=json.optString("error","Refresh the match and try again.");}
                 else if(code==200&&body!=null&&json.optInt("queued")==Integer.parseInt(body)){success=true;waiting=true;message="Number "+body+" is ready. Roll the dice in your game.";}
                 else if(code==409&&body!=null){success=true;waiting=true;message="A number is already waiting. Roll in the game first.";}
                 else message=code==401?"Access token doesn't match. Connect again using manual settings.":"Couldn't connect. Keep the game open and try again.";
             }catch(Exception e){android.util.Log.w("LocalDiceRemote","Request failed",e);message=body==null?"Connection lost. Keep the game open, then refresh.":"Delivery could not be confirmed. Refresh before sending again.";}
             finally{if(connection!=null)connection.disconnect();}
-            final boolean ok=success,queued=waiting;final String info=message,deviceName=name;
+            final JSONObject assistResult=assist;final boolean ok=success,queued=waiting;final String info=message,deviceName=name;
             runOnUiThread(()->{
                 if(destroyed||ticket!=requestGeneration||page!=CONTROL)return;
                 boolean wasConnected=connected,wasPending=pending;
+                if(assistResult!=null)winnerState=assistResult;
                 busy=false;refreshing=false;connected=ok;pending=queued;connectedAddress=ok?destination:"";connectedToken=ok?credential:"";
                 if(ok)getPreferences(0).edit().putString("address",destination).putString("token",credential).apply();
                 if(current!=null&&deviceName!=null&&!deviceName.trim().isEmpty())current.name=deviceName;
